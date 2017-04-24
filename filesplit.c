@@ -3,30 +3,23 @@
 #include <string.h>
 
 int main(int argc, char const *argv[]){
-    //TODO: Refactor
-
-	if (argc > 3){
-        //TODO: Print invalid arguments ?
-        return 0;
+	if (argc > 3 || argc < 3 ){
+        printf("Se han recibido %d argumentos", argc);
+        return 1;
     }
-
-
     int n = atoi(argv[2]);
     FILE* fileRead = fopen(argv[1], "r");
-    int c = fgetc(fileRead);
 
-    size_t len = strlen(argv[1]) + 1 + 4 + 1;
-    char number[6]; // The number for the filename buffer
-    char buffer[len]; // The filename buffer. Size: FileName + '_' + 4 digit number + \0
+    int len = 6; //'_' + 4 digitos + \0
+    char buffer[strlen(argv[1]) + len];
+    char number[len];
     snprintf(number, sizeof(char) * len, "_%04d", 1);
-
     strcpy(buffer, argv[1]);
     strcat(buffer, number);
 
-
-
     FILE* fileWrite = fopen(buffer, "w");
     int count = 1;
+    int c = fgetc(fileRead);
     while (c != EOF){
         fputc(c, fileWrite);
         c = fgetc(fileRead);
