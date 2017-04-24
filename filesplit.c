@@ -26,12 +26,13 @@ int main(int argc, char const *argv[]){
         if (!(count % n)){
             fputc('\n', fileWrite);
             fclose(fileWrite);
-
-            snprintf(number, sizeof(char) * len, "_%04d", count/n+1);
-            strcpy(buffer, argv[1]);
-            strcat(buffer, number);
-
-            fileWrite = fopen(buffer, "w");
+            //No abro un nuevo archivo si el prox char es un EOF (Para que no quede vacio)
+            if (c != EOF){
+                snprintf(number, sizeof(char) * len, "_%04d", count/n+1);
+                strcpy(buffer, argv[1]);
+                strcat(buffer, number);
+                fileWrite = fopen(buffer, "w");
+            }
         }
         count++;
     }
