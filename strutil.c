@@ -15,6 +15,7 @@ char** split(const char* str, char sep){
 
         if(str[i] == sep || str[i] == '\0'){
             buffer[j] = '\0';
+            //TOODO: NO USAR STRLEN! -> EL TAMAÑO ES LA VARIABLE J
             strv[count] = malloc(sizeof(char) * (strlen(buffer) + 1 )); //Largo del buffer + '\0'
             if(!strv[count]){
                 while (count > 0){
