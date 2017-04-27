@@ -11,33 +11,69 @@ double* obtener_promedio_movil(int* arreglo, size_t n, size_t k){
                 continue;
             result[i] += arreglo[j];
         }
-        result[i] /= (i==0 || i == (n-1))? nk+1 : 2*nk+1;
+        if (i==0 || i == (n-1))
+            result[i] /= nk+1;
+        else if (i < nk)
+            result[i] /= i+k+1;
+        else if ((i+nk) > (n-1))
+            result[i] /= k+1+(i + nk - n + 1);
+        else
+            result[i] /= 2*nk+1;
     }
     return result;
 }
 
 double* obtener_promedio_movil2(int* arreglo, size_t n, size_t k){
-    int nk = (int) k;
     double* result = malloc(sizeof(double) * n);
+    double result2[n];
+    int nk = (int) k;
 
-    result[0] = 2;
-    result[5] = 13;
+    result[0] = 0;
+    result2[n-1] = 0;
 
     for (int i = 0, j = (int) n-1; i < n; ++i, --j) {
-
-        if (i == 0){
-            for (int l = 0; l <= k; ++l) {
+        if (i <= 0){
+            //Las sumas parciales de los extremos se hacen recorriendo
+            for (int l = 0; l <= nk; ++l) {
                 result[i] += arreglo[l];
-                result[n-1] += arreglo[n-l-1];
+                result2[n-1] += arreglo[n-l-1];
             }
+            continue;
         }
 
-        result[i] = result[i-1] - arreglo[i] + arreglo[i+k];
-        result[j] = result[j+1] - arreglo[j] + arreglo[j-k];
+        //Sumas parciales hacia la derecha
+        if (i < n-1){
+            if (i + nk < n)
+                result[i] = result[i-1] - arreglo[i-1] + arreglo[i+nk];
+            else
+                result[i] = result[i-1] - arreglo[i-1];
+        }
 
-        //result[i] /= (i==0 || i == (n-1))? nk+1 : 2*nk+1;
+        //Sumas parciales hacia la izquierda
+        if (j > 0){
+            if (j-nk >= 0)
+                result2[j] = result2[j+1] - arreglo[j+1] + arreglo[j-nk];
+            else
+                result2[j] = result2[j+1] - arreglo[j+1];
+        }
 
-        //result[j] /= (i==0 || i == (n-1))? nk+1 : 2*nk+1;
+    }
+
+    for (int i = 0; i < n; ++i) {
+        result[i] += result2[i];
+        if (i != 0 && i != n-1)
+            //Ambas sumas parciales (no en los extremos) incluyen al numero del medio,
+            // por lo que hay que restarle ese numero una vez
+            result[i] -= arreglo[i];
+
+        if (i==0 || i == (n-1))
+            result[i] /= nk+1;
+        else if (i < nk)
+            result[i] /= i+nk+1;
+        else if ((i+nk) > (n-1))
+            result[i] /= nk+1+(i + nk - n + 1);
+        else
+            result[i] /= 2*nk+1;
     }
 
     return result;
@@ -45,10 +81,14 @@ double* obtener_promedio_movil2(int* arreglo, size_t n, size_t k){
 
 int main(){
     int a[] = { 1, 3, 12, 6, 17, 9 };
+    //TODO: K PUEDE SER IGUAL A N
     size_t n = 6;
     size_t k = 1;
-    double* r = obtener_promedio_movil2(a, n, k);
-    printf("%lf", r[1]);
+    double* r = obtener_promedio_movil(a, n, k);
+    double* s = obtener_promedio_movil2(a, n, k);
+    for (int i = 0; i < n; ++i) {
+        printf("%lf --- %lf --- %s \n", r[i], s[i], (r[i] == s[i])? "true" : "false");
+    }
     free(r);
     return 0;
 }
