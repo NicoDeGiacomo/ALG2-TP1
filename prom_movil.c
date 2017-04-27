@@ -2,6 +2,9 @@
 #include <stdlib.h>
 
 double* obtener_promedio_movil(int* arreglo, size_t n, size_t k){
+    if (k >= n)
+        //TODO : ¿ESTO ESTA OK?
+        k = n-1;
     int nk = (int) k;
     double* result = malloc(sizeof(double) * n);
     for (int i = 0; i < n; ++i) {
@@ -24,6 +27,9 @@ double* obtener_promedio_movil(int* arreglo, size_t n, size_t k){
 }
 
 double* obtener_promedio_movil2(int* arreglo, size_t n, size_t k){
+    if (k >= n)
+        //TODO : ¿ESTO ESTA OK?
+        k = n-1;
     double* result = malloc(sizeof(double) * n);
     double result2[n];
     int nk = (int) k;
@@ -83,7 +89,7 @@ int main(){
     int a[] = { 1, 3, 12, 6, 17, 9 };
     //TODO: K PUEDE SER IGUAL A N
     size_t n = 6;
-    size_t k = 1;
+    size_t k = 5;
     double* r = obtener_promedio_movil(a, n, k);
     double* s = obtener_promedio_movil2(a, n, k);
     for (int i = 0; i < n; ++i) {
