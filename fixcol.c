@@ -2,7 +2,6 @@
 #include <stdlib.h>
 
 int main(int argc, char const *argv[]){
-    //TODO: Code refactor
 
     if (argc > 3 || argc < 3 ){
         printf("Cannot process more than 2 arguments");
