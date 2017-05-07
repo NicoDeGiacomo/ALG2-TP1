@@ -4,7 +4,7 @@
 int main(int argc, char const *argv[]){
 
     if (argc > 3 || argc < 3 ){
-        printf("Cannot process more than 2 arguments");
+        fprintf(stderr, "Cannot process more than 2 arguments");
         return 1;
     }
 

@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <unistd.h>
 
 double* obtener_promedio_movil(int* arreglo, size_t n, size_t k){
     if (k >= n)
@@ -28,12 +30,13 @@ double* obtener_promedio_movil(int* arreglo, size_t n, size_t k){
 double* obtener_promedio_movil2(int* arreglo, size_t n, size_t k){
     if (k >= n)
         k = n-1;
+
     double* result = malloc(sizeof(double) * n);
     double result2[n];
-    int nk = (int) k;
+    for (int i = 0; i < n; ++i)
+        result[i] = result2[i] = 0;
 
-    result[0] = 0;
-    result2[n-1] = 0;
+    int nk = (int) k;
 
     for (int i = 0, j = (int) n-1; i < n; ++i, --j) {
         if (i <= 0){
@@ -45,7 +48,7 @@ double* obtener_promedio_movil2(int* arreglo, size_t n, size_t k){
             continue;
         }
 
-        //Sumas parciales hacia la derecha
+        //Sumas parciales hacia la derecha (sin volver a recorrer)
         if (i < n-1){
             if (i + nk < n)
                 result[i] = result[i-1] - arreglo[i-1] + arreglo[i+nk];
@@ -53,7 +56,7 @@ double* obtener_promedio_movil2(int* arreglo, size_t n, size_t k){
                 result[i] = result[i-1] - arreglo[i-1];
         }
 
-        //Sumas parciales hacia la izquierda
+        //Sumas parciales hacia la izquierda (sin volver a recorrer)
         if (j > 0){
             if (j-nk >= 0)
                 result2[j] = result2[j+1] - arreglo[j+1] + arreglo[j-nk];
@@ -84,14 +87,19 @@ double* obtener_promedio_movil2(int* arreglo, size_t n, size_t k){
 }
 
 int main(){
-    int a[] = { 1, 3, 12, 6, 17, 9 };
-    size_t n = 6;
-    size_t k = 5;
-    double* r = obtener_promedio_movil(a, n, k);
+    size_t n = 100000;
+    size_t k = 1000;
+    int a[n];
+    for (int j = 0; j < n; ++j)
+        a[j] = j;
+
+
+    double* r = obtener_promedio_movil2(a, n, k);
     double* s = obtener_promedio_movil2(a, n, k);
-    for (int i = 0; i < n; ++i) {
-        printf("%lf --- %lf --- %s \n", r[i], s[i], (r[i] == s[i])? "true" : "false");
-    }
+    for (int i = 0; i < n; ++i)
+        printf("%lf --- %lf --- %s \n", r[i], s[i], (r[i] == s[i])? "OK" : "ERROR");
     free(r);
+    free(s);
+
     return 0;
 }
