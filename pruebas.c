@@ -10,7 +10,7 @@ int main(){
     for (int j = 0; j < n; ++j)
         a[j] = j;
 
-    double* r = obtener_promedio_movil2(a, n, k);
+    double* r = obtener_promedio_movil(a, n, k);
     double* s = obtener_promedio_movil2(a, n, k);
     bool isok = true;
     for (int i = 0; i < n; ++i)
@@ -22,7 +22,7 @@ int main(){
     free(r);
     free(s);
 
-    char* cadena[] = {",a,akkkkkkbdnskaidhfndiyeb,b,c,de,faaaa,ghi,jkl,", "", ",", "asd"};
+    char* cadena[] = {",a,akkkkkndiyeb,b,c,de,faaaa,ghi,jkl,", "", ",", "asd", ",,,"};
 
     for (int i = 0; i < 4; ++i) {
         char **palabras = split(cadena[i], ',');

@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#include <unistd.h>
 
 double* obtener_promedio_movil(int* arreglo, size_t n, size_t k){
     if (k >= n)
