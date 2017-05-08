@@ -93,7 +93,6 @@ int main(){
     for (int j = 0; j < n; ++j)
         a[j] = j;
 
-
     double* r = obtener_promedio_movil2(a, n, k);
     double* s = obtener_promedio_movil2(a, n, k);
     for (int i = 0; i < n; ++i)

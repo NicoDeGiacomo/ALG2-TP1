@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+void filesplit(const char* name, int n);
+
 void filesplit(const char* name, int n){
     FILE* fileRead = fopen(name, "r");
 
@@ -38,9 +40,10 @@ void filesplit(const char* name, int n){
 
 int main(int argc, char const *argv[]){
     if (argc > 3 || argc < 3 ){
-        fprintf(stderr, "Cannot process more than 2 arguments\n");
+        fprintf(stderr, "Please provide 2 arguments\n");
         return 1;
     }
-    fixcol(argv[1], atoi(argv[2]));
+
+    filesplit(argv[1], atoi(argv[2]));
     return 0;
 }

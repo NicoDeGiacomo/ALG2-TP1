@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void fixcol(const char* name, int n);
 
 void fixcol(const char* name, int n){
 
@@ -27,7 +28,7 @@ void fixcol(const char* name, int n){
 
 int main(int argc, char const *argv[]){
     if (argc > 3 || argc < 3 ){
-        fprintf(stderr, "Cannot process more than 2 arguments\n");
+        fprintf(stderr, "Please provide 2 arguments\n");
         return 1;
     }
     fixcol(argv[1], atoi(argv[2]));
