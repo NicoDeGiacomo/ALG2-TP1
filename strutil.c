@@ -49,13 +49,17 @@ char* join(char** strv, char sep){
     //Tamaño output: suma de todos los largos de las cadenas en strv + cantidad de separadores requeridos
     while (strv[count])
         len += strlen(strv[count++]) + 1;
-    if (!len)
-        return "";
+    if (!len){
+        char* output = malloc(sizeof(char) * 1);
+        strcpy(output, "");
+        return output;
+    }
+
 
     count = 0;
     char* buffer = strv[count];
     char* output = malloc(sizeof(char) * len );
-    *output = '\0';
+    strcpy(output, "");
     char separator[2] = {sep, '\0'};
 
     while (buffer){
