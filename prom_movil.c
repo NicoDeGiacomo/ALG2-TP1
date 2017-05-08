@@ -85,20 +85,3 @@ double* obtener_promedio_movil2(int* arreglo, size_t n, size_t k){
 
     return result;
 }
-
-int main(){
-    size_t n = 100000;
-    size_t k = 1000;
-    int a[n];
-    for (int j = 0; j < n; ++j)
-        a[j] = j;
-
-    double* r = obtener_promedio_movil2(a, n, k);
-    double* s = obtener_promedio_movil2(a, n, k);
-    for (int i = 0; i < n; ++i)
-        printf("%lf --- %lf --- %s \n", r[i], s[i], (r[i] == s[i])? "OK" : "ERROR");
-    free(r);
-    free(s);
-
-    return 0;
-}

@@ -11,4 +11,4 @@ CFLAGS += -Werror
 # También se puede invocar `make fixcol`, `make filesplit` o `make strutil.o` para
 # compilar una parte del TP solamente.
 
-all: fixcol filesplit strutil.o prom_movil.o
+all: fixcol filesplit strutil.o prom_movil.o pruebas

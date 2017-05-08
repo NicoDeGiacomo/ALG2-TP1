@@ -76,17 +76,3 @@ void free_strv(char *strv[]){
     }
     free(strv);
 }
-
-int main(void){
-    char* cadena[] = {",1,akkkkkkbdnskaidhfndiyeb,b,c,de,faaaa,ghi,jkl,", "", ",", "asd"};
-    
-    for (int i = 0; i < 4; ++i) {
-        char **palabras = split(cadena[i], ',');
-        char *otro_resultado = join(palabras, ',');
-        printf("Prueba con cadena: '%s' -- %s \n", cadena[i], (strcmp(cadena[i], otro_resultado)) ? "ERROR" : "OK");
-        free_strv(palabras);
-        free(otro_resultado);
-    }
-
-    return 0;
-}
