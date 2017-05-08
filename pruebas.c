@@ -1,3 +1,6 @@
+//Nombre: Nicolás De Giácomo
+//Padron: 99702
+//Corrector: Matias Cano
 #include <stdbool.h>
 #include "strutil.c"
 #include "prom_movil.c"

@@ -1,3 +1,6 @@
+//Nombre: Nicolás De Giácomo
+//Padron: 99702
+//Corrector: Matias Cano
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
