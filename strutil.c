@@ -44,11 +44,13 @@ char* join(char** strv, char sep){
     if (!strv)
         return "";
 
-    int len = 0;
+    size_t len = 0;
     int count = 0;
     //Tamaño output: suma de todos los largos de las cadenas en strv + cantidad de separadores requeridos
     while (strv[count])
         len += strlen(strv[count++]) + 1;
+    if (!len)
+        return "";
 
     count = 0;
     char* buffer = strv[count];
