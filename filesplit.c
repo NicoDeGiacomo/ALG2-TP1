@@ -2,19 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main(int argc, char const *argv[]){
-	if (argc > 3 || argc < 3 ){
-        printf("Se han recibido %d argumentos", argc);
-        return 1;
-    }
-    int n = atoi(argv[2]);
-    FILE* fileRead = fopen(argv[1], "r");
+void filesplit(const char* name, int n){
+    FILE* fileRead = fopen(name, "r");
 
     int len = 6; //'_' + 4 digitos + \0
-    char buffer[strlen(argv[1]) + len];
+    char buffer[strlen(name) + len];
     char number[len];
     snprintf(number, sizeof(char) * len, "_%04d", 1);
-    strcpy(buffer, argv[1]);
+    strcpy(buffer, name);
     strcat(buffer, number);
 
     FILE* fileWrite = fopen(buffer, "w");
@@ -29,7 +24,7 @@ int main(int argc, char const *argv[]){
             //No abro un nuevo archivo si el prox char es un EOF (Para que no quede vacio)
             if (c != EOF){
                 snprintf(number, sizeof(char) * len, "_%04d", count/n+1);
-                strcpy(buffer, argv[1]);
+                strcpy(buffer, name);
                 strcat(buffer, number);
                 fileWrite = fopen(buffer, "w");
             }
@@ -39,5 +34,13 @@ int main(int argc, char const *argv[]){
     fclose(fileWrite);
     fclose(fileRead);
 
-	return 0;
+}
+
+int main(int argc, char const *argv[]){
+    if (argc > 3 || argc < 3 ){
+        fprintf(stderr, "Cannot process more than 2 arguments\n");
+        return 1;
+    }
+    fixcol(argv[1], atoi(argv[2]));
+    return 0;
 }

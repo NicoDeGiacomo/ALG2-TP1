@@ -1,15 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char const *argv[]){
 
-    if (argc > 3 || argc < 3 ){
-        fprintf(stderr, "Cannot process more than 2 arguments");
-        return 1;
-    }
+void fixcol(const char* name, int n){
 
-    int n = atoi(argv[2]);
-    FILE* fileRead = fopen(argv[1], "r");
+    FILE* fileRead = fopen(name, "r");
 
     int count = 1;
     int c = fgetc(fileRead);
@@ -28,6 +23,13 @@ int main(int argc, char const *argv[]){
     }
 
     fclose(fileRead);
+}
 
+int main(int argc, char const *argv[]){
+    if (argc > 3 || argc < 3 ){
+        fprintf(stderr, "Cannot process more than 2 arguments\n");
+        return 1;
+    }
+    fixcol(argv[1], atoi(argv[2]));
     return 0;
 }
