@@ -43,12 +43,6 @@ char** split(const char* str, char sep){
     return strv;
 }
 
-char* mystrcat( char* dest, char* src ){
-    while (*dest) dest++;
-    while ((*dest++ = *src++));
-    return --dest;
-}
-
 char* join(char** strv, char sep){
     if (!strv)
         return "";
@@ -58,28 +52,26 @@ char* join(char** strv, char sep){
     //Tamaño output: suma de todos los largos de las cadenas en strv + cantidad de separadores requeridos
     while (strv[count])
         len += strlen(strv[count++]) + 1;
-    if (!len){
+    /*if (!len){
         char* output = malloc(sizeof(char) * 1);
         strcpy(output, "");
         return output;
-    }
-
+    }*/
 
     count = 0;
-    char* buffer = strv[count];
     char* output = malloc(sizeof(char) * len );
     strcpy(output, "");
-    //char separator[2] = {sep, '\0'};
+    size_t output_len = strlen(strv[count]);
+    char separator[] = {sep, '\0'};
 
-    while (buffer){
-        output = strcat(output, buffer);
+    while (strv[count]){
+        strcat(output, strv[count]);
+        if (strv[count + 1])
+            strcat(output, separator);
+        output_len += strlen(strv[count]);
         count ++;
-        buffer = strv[count];
-        if(buffer)
-            //strcat(output, separator);
-            //strncat(output, &sep, 1);
-            output = strcat(output, &sep);
     }
+
     return output;
 }
 

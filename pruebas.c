@@ -25,9 +25,9 @@ int main(){
     free(r);
     free(s);
 
-    char* cadena[] = {",a,akkkkkndiyeb,b,c,de,faaaa,ghi,jkl,", "", ",", "asd", ",,,"};
+    char* cadena[] = {",a,akkkkkndiyeb,b,c,de,faaaa,ghi,jkl,", "", ",", "asd", ",,,", "abc,def,ghi"};
 
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 6; ++i) {
         char **palabras = split(cadena[i], ',');
         char *otro_resultado = join(palabras, ',');
         printf("Prueba con cadena: '%s' -- %s \n", cadena[i], (strcmp(cadena[i], otro_resultado)) ? "ERROR" : "OK");
