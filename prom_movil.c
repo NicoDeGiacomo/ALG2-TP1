@@ -19,9 +19,9 @@ double* obtener_promedio_movil(int* arreglo, size_t n, size_t k){
         if (i==0 || i == (n-1))
             result[i] /= nk+1;
         else if (i < nk)
-            result[i] /= i+k+1;
+            result[i] /= i+nk+1;
         else if ((i+nk) > (n-1))
-            result[i] /= k+1+(i + nk - n + 1);
+            result[i] /= nk+1+(i + nk - (int)n + 1);
         else
             result[i] /= 2*nk+1;
     }
@@ -79,7 +79,7 @@ double* obtener_promedio_movil2(int* arreglo, size_t n, size_t k){
         else if (i < nk)
             result[i] /= i+nk+1;
         else if ((i+nk) > (n-1))
-            result[i] /= nk+1+(i + nk - n + 1);
+            result[i] /= nk+1+(i + nk - (int)n + 1);
         else
             result[i] /= 2*nk+1;
     }
