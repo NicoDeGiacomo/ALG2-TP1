@@ -43,6 +43,12 @@ char** split(const char* str, char sep){
     return strv;
 }
 
+char* mystrcat( char* dest, char* src ){
+    while (*dest) dest++;
+    while ((*dest++ = *src++));
+    return --dest;
+}
+
 char* join(char** strv, char sep){
     if (!strv)
         return "";
@@ -63,14 +69,16 @@ char* join(char** strv, char sep){
     char* buffer = strv[count];
     char* output = malloc(sizeof(char) * len );
     strcpy(output, "");
-    char separator[2] = {sep, '\0'};
+    //char separator[2] = {sep, '\0'};
 
     while (buffer){
-        sprintf(output,"%s%s",output,buffer);
+        output = strcat(output, buffer);
         count ++;
         buffer = strv[count];
         if(buffer)
-            strcat(output, separator);
+            //strcat(output, separator);
+            //strncat(output, &sep, 1);
+            output = strcat(output, &sep);
     }
     return output;
 }
