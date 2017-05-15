@@ -70,19 +70,21 @@ char* join(char** strv, char sep){
         return output;
     }
 
-
-    count = 0;
-    char* buffer = strv[count];
     char* output = malloc(sizeof(char) * len );
     strcpy(output, "");
+
+    size_t out_len = 0;
     char separator[2] = {sep, '\0'};
 
-    while (buffer){
-        concat(output, strlen(output), buffer);
+    count = 0;
+    while (strv[count]){
+        concat(output, out_len, strv[count]);
+        out_len += strlen(strv[count]);
         count ++;
-        buffer = strv[count];
-        if(buffer)
-            concat(output, strlen(output), separator);
+        if(strv[count]){
+            concat(output, out_len, separator);
+            out_len += strlen(separator);
+        }
     }
     return output;
 }
