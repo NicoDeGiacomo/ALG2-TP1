@@ -43,42 +43,49 @@ char** split(const char* str, char sep){
     return strv;
 }
 
-void concat(char s1[], size_t len1,char s2[]) {
+void concat(char s1[], size_t len1, char s2[]) {
+
+    if (!s1 || !s2)
+        return;
 
     for (int j = 0; s2[j] != '\0'; len1++, j++) {
         s1[len1] = s2[j];
     }
 
-    //s1[len1] = '\0';
+    s1[len1] = '\0';
 }
 
 char* join(char** strv, char sep){
     if (!strv)
         return "";
 
-    size_t len = 0;
     int count = 0;
-    //Tamaño output: suma de todos los largos de las cadenas en strv + cantidad de separadores requeridos
+    size_t len = 0;
     while (strv[count])
         len += strlen(strv[count++]) + 1;
-    if (!len){
-        char* output = malloc(sizeof(char) * 1);
-        strcpy(output, "");
-        return output;
-    }
 
     count = 0;
-    char* output = malloc(sizeof(char) * len );
-    strcpy(output, "");
     size_t output_len = strlen(strv[count]);
+    char* output = malloc(sizeof(char) * len);
+    strcat(output,"");
+
+    concat(output, output_len, strv[count]);
+
+    count++;
+
+    if (!len)
+        return output;
+
     char separator[] = {sep, '\0'};
 
-    while (strv[count]){
+    while (strv[count] != NULL){
+
+        concat(output, output_len, separator);
+        output_len += 1;
+
         concat(output, output_len, strv[count]);
-        if (strv[count + 1])
-            concat(output, output_len, separator);
         output_len += strlen(strv[count]);
-        output_len += (strv[count + 1])? 1 : 0;
+
         count ++;
     }
     return output;
