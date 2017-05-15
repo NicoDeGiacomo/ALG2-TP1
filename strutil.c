@@ -59,34 +59,30 @@ char* join(char** strv, char sep){
     if (!strv)
         return "";
 
-    int count = 0;
     size_t len = 0;
+    int count = 0;
+    //Tamaño output: suma de todos los largos de las cadenas en strv + cantidad de separadores requeridos
     while (strv[count])
         len += strlen(strv[count++]) + 1;
+    if (!len){
+        char* output = malloc(sizeof(char) * 1);
+        strcpy(output, "");
+        return output;
+    }
+
 
     count = 0;
-    size_t output_len = strlen(strv[count]);
-    char* output = malloc(sizeof(char) * len);
-    strcat(output,"");
+    char* buffer = strv[count];
+    char* output = malloc(sizeof(char) * len );
+    strcpy(output, "");
+    char separator[2] = {sep, '\0'};
 
-    concat(output, output_len, strv[count]);
-
-    count++;
-
-    if (!len)
-        return output;
-
-    char separator[] = {sep, '\0'};
-
-    while (strv[count] != NULL){
-
-        concat(output, output_len, separator);
-        output_len += 1;
-
-        concat(output, output_len, strv[count]);
-        output_len += strlen(strv[count]);
-
+    while (buffer){
+        concat(output, strlen(output), buffer);
         count ++;
+        buffer = strv[count];
+        if(buffer)
+            concat(output, strlen(output), separator);
     }
     return output;
 }
