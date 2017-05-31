@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void fixcol(const char* name, int n){
+int fixcol(const char* name, int n){
 
     FILE* fileRead = fopen(name, "r");
     if (!fileRead) {
@@ -29,6 +29,7 @@ void fixcol(const char* name, int n){
     }
 
     fclose(fileRead);
+    return 0;
 }
 
 int main(int argc, char const *argv[]){

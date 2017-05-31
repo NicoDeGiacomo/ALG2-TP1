@@ -8,7 +8,7 @@
 int main(){
 
     int f[] = { 1, 3, 12, 6, 17, 9 };
-    double* f2 = obtener_promedio_movil(f, 6, 1);
+    obtener_promedio_movil(f, 6, 1);
 
 
     size_t n = 100000;

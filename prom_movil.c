@@ -27,7 +27,7 @@ double* obtener_promedio_movil2(int* arreglo, size_t n, size_t k){
     double cont[n];
     for (int i = 0; i < n; ++i){
         aux[i] = 0;
-        cont[i] = 2*k+1;
+        cont[i] = 2*(int)k+1;
     }
 
     int prev = 0;
@@ -40,16 +40,16 @@ double* obtener_promedio_movil2(int* arreglo, size_t n, size_t k){
         aux[i] = prev;
         prev -= (i+1<n)?arreglo[i+1]:0;
         prev += (i+k+1<n)?arreglo[i+k+1]:0;
-        cont[i]-= (i+k+1<n)?0:(i+k+1-n);
+        cont[i]-= (i+k+1<n)?0:(i+(int)k+1-(int)n);
     }
 
     prev = 0;
-    for (int i = n-1; i >= n-k-1; --i) {
+    for (int i = (int)n-1; i >= (int)n-k-1; --i) {
         prev += arreglo[i];
     }
-    prev-=arreglo[n-1];
+    prev-=arreglo[(int)n-1];
 
-    for (int i = n-1; i >= 0; --i) {
+    for (int i = (int)n-1; i >= 0; --i) {
         result[i] = arreglo[i] + aux[i] + prev;
         prev -= (i-1>=0)?arreglo[i-1]:0;
         prev += (i-(int)k-1>=0)?arreglo[i-(int)k-1]:0;
