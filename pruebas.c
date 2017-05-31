@@ -6,11 +6,6 @@
 #include "prom_movil.c"
 
 int main(){
-
-    int f[] = { 1, 3, 12, 6, 17, 9 };
-    obtener_promedio_movil(f, 6, 1);
-
-
     size_t n = 100000;
     size_t k = 1000;
     int a[n];
