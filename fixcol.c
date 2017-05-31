@@ -4,11 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void fixcol(const char* name, int n);
-
 void fixcol(const char* name, int n){
 
     FILE* fileRead = fopen(name, "r");
+    if (!fileRead) {
+        fprintf(stderr, "Error opening the file\n");
+        return 1;
+    }
 
     int count = 1;
     int c = fgetc(fileRead);

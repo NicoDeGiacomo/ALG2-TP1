@@ -5,37 +5,26 @@
 #include <stdlib.h>
 
 double* obtener_promedio_movil(int* arreglo, size_t n, size_t k){
-    if (k >= n)
-        k = n-1;
-    int nk = (int) k;
-    double* result = malloc(sizeof(double) * n);
+    double* result = calloc(n, sizeof(double));
     for (int i = 0; i < n; ++i) {
-        result[i] = 0;
-        for (int j = (i - nk); j <= (i+nk); ++j) {
-            if(j < 0 || j >= n)
-                continue;
-            result[i] += arreglo[j];
+        int cont = 0;
+        for (int j = (i - k); j <= (i+k); ++j) {
+            if(!(j < 0 || j >= n)) {
+                result[i] += arreglo[j];
+                cont+=1;
+            }
         }
-        if (i==0 || i == (n-1))
-            result[i] /= nk+1;
-        else if (i < nk)
-            result[i] /= i+nk+1;
-        else if ((i+nk) > (n-1))
-            result[i] /= nk+1+(i + nk - (int)n + 1);
-        else
-            result[i] /= 2*nk+1;
+        result[i] /= cont;
     }
     return result;
 }
 
 double* obtener_promedio_movil2(int* arreglo, size_t n, size_t k){
-    if (k >= n)
-        k = n-1;
 
-    double* result = malloc(sizeof(double) * n);
+    double* result = calloc(n, sizeof(double));
     double result2[n];
     for (int i = 0; i < n; ++i)
-        result[i] = result2[i] = 0;
+        result2[i] = 0;
 
     int nk = (int) k;
 
@@ -69,17 +58,16 @@ double* obtener_promedio_movil2(int* arreglo, size_t n, size_t k){
 
     for (int i = 0; i < n; ++i) {
         result[i] += result2[i];
-        if (i != 0 && i != n-1)
-            //Ambas sumas parciales (no en los extremos) incluyen al numero del medio,
-            // por lo que hay que restarle ese numero una vez
-            result[i] -= arreglo[i];
+        //Ambas sumas parciales incluyen al numero del medio,
+        // por lo que hay que restarle ese numero una vez
+        result[i] -= arreglo[i];
 
         if (i==0 || i == (n-1))
             result[i] /= nk+1;
         else if (i < nk)
             result[i] /= i+nk+1;
         else if ((i+nk) > (n-1))
-            result[i] /= nk+1+(i + nk - (int)n + 1);
+            result[i] /= 2*nk+1-(i+nk-n-1);
         else
             result[i] /= 2*nk+1;
     }
