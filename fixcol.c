@@ -12,20 +12,21 @@ int fixcol(const char* name, int n){
         return 1;
     }
 
-    int count = 1;
-    int c = fgetc(fileRead);
+    int count = 0;
+    while (!feof(fileRead)){
+        char linea[n];
+        size_t leidos = fread(linea, sizeof(char), (size_t) n, fileRead);
 
-    while (c != EOF){
-        printf("%c", c);
-
-        if (!(count%n))
-            printf("\n");
-        if (c == '\n')
-            count = 1;
-        else
+        for (int i = 0; i < leidos; ++i) {
+            printf("%c",linea[i]);
             count++;
-
-        c = fgetc(fileRead);
+            if (count == leidos){
+                printf("\n");
+                count = 0;
+            }
+            if (linea[i] == '\n')
+                count = 0;
+        }
     }
 
     fclose(fileRead);
