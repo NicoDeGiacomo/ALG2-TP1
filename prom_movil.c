@@ -29,8 +29,8 @@ double* obtener_promedio_movil2(int* arreglo, size_t n, size_t k){
     for (int j = 0; j <= k; ++j) {
         result[0] += arreglo[j];
     }
-    int cant = k+1;
-    int prev = result[0];
+    double cant = k+1;
+    double prev = result[0];
     result[0] /= cant;
 
     for (int i = 1; i < n; ++i) {
