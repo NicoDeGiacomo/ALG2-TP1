@@ -23,39 +23,31 @@ double* obtener_promedio_movil(int* arreglo, size_t n, size_t k){
 double* obtener_promedio_movil2(int* arreglo, size_t n, size_t k){
 
     double* result = calloc(n, sizeof(double));
-    double aux[n];
-    double cont[n];
-    for (int i = 0; i < n; ++i){
-        aux[i] = 0;
-        cont[i] = 2*(int)k+1;
+    if (!result)
+        return NULL;
+
+    for (int j = 0; j <= k; ++j) {
+        result[0] += arreglo[j];
     }
+    int cant = k+1;
+    int prev = result[0];
+    result[0] /= cant;
 
-    int prev = 0;
-    for (int i = 0; i <= k; ++i) {
-        prev += arreglo[i];
-    }
-    prev-=arreglo[0];
+    for (int i = 1; i < n; ++i) {
+        if (i<=k){
+            result[i] = prev + arreglo[i + k];
+            cant++;
+        }
+        else if (i + k < n){
+            result[i] = prev - arreglo[i - k - 1] + arreglo[i + k];
+        }
+        else {
+            result[i] = prev - arreglo[i - k - 1];
+            cant--;
+        }
 
-    for (int i = 0; i < n; ++i) {
-        aux[i] = prev;
-        prev -= (i+1<n)?arreglo[i+1]:0;
-        prev += (i+k+1<n)?arreglo[i+k+1]:0;
-        cont[i]-= (i+k+1<n)?0:(i+(int)k+1-(int)n);
-    }
-
-    prev = 0;
-    for (int i = (int)n-1; i >= (int)n-k-1; --i) {
-        prev += arreglo[i];
-    }
-    prev-=arreglo[(int)n-1];
-
-    for (int i = (int)n-1; i >= 0; --i) {
-        result[i] = arreglo[i] + aux[i] + prev;
-        prev -= (i-1>=0)?arreglo[i-1]:0;
-        prev += (i-(int)k-1>=0)?arreglo[i-(int)k-1]:0;
-
-        cont[i]+= (i-(int)k>=0)?0:(i-(int)k);
-        result[i]/=cont[i];
+        prev = result[i];
+        result[i] /= cant;
     }
 
     return result;
